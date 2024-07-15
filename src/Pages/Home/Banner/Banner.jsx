@@ -1,31 +1,31 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import slide1 from '../../../assets/home/01.jpg'
-import slide2 from '../../../assets/home/02.jpg'
-import slide3 from '../../../assets/home/03.png'
-import slide4 from '../../../assets/home/04.jpg'
-import slide5 from '../../../assets/home/05.png'
-import slide6 from '../../../assets/home/06.png'
+import banner1 from '../../../assets/home/01.jpg'
+import banner2 from '../../../assets/home/02.jpg'
+import banner3 from '../../../assets/home/03.png'
+import banner4 from '../../../assets/home/04.jpg'
+import banner5 from '../../../assets/home/05.png'
+import banner6 from '../../../assets/home/06.png'
 const Banner = () => {
     return (
         <Carousel>
             <div>
-                <img src={slide1} />
+                <img src={banner1} />
             </div>
             <div>
-                <img src={slide2} />
+                <img src={banner2} />
             </div>
             <div>
-                <img src={slide3} />
+                <img src={banner3} />
             </div>
             <div>
-                <img src={slide4} />
+                <img src={banner4} />
             </div>
             <div>
-                <img src={slide5} />
+                <img src={banner5} />
             </div>
             <div>
-                <img src={slide6} />
+                <img src={banner6} />
             </div>
         </Carousel>
     );
