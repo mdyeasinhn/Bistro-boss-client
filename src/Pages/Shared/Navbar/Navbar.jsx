@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const navlinks = <>
-                            <Link to='/'><a>Home</a></Link>
-        
+        <li className="text-[#EEFF25]"> <Link to='/'><a>Home</a></Link></li>
+        <li className="text-[#EEFF25]"> <Link to='/menu'><a>Our Menu</a></Link></li>
+        <li className="text-[#EEFF25]"> <Link to='/order/salad'><a>Order Food</a></Link></li>
+
     </>
     return (
         <>
@@ -17,7 +19,7 @@ const Navbar = () => {
                                 className="h-5 w-5"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke="currentColor">
+                                stroke="currentColor">  
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -28,14 +30,20 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                         
+                            {navlinks}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">Bistro Boss</a>
+                    <a className="btn btn-ghost text-xl">
+                        <ul className="">
+                            <li>Bistro Boss</li>
+                            <li className="text-black">Restaurant</li>
+                        </ul>
+
+                    </a>
                 </div>
-                <div className="navbar-center hidden lg:flex">
+                <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                   
+                        {navlinks}
                     </ul>
                 </div>
                 <div className="navbar-end">
