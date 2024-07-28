@@ -22,6 +22,13 @@ const AuthProvider = ({children}) => {
         setLoading(true)
         return signOut(auth);
     }
+
+    const updateProfile = (name, photo) =>{
+        return updateProfile(auth.currentUser,{
+            displayName: "name", photoURL: "photo"
+        })
+
+    }
     useEffect(()=>{
       const unsubcribe = onAuthStateChanged(auth, currentUser=>{
             setUser(currentUser)
@@ -38,6 +45,7 @@ const AuthProvider = ({children}) => {
         createUser,
         signIn,
         logOut,
+        updateProfile,
     }
     return (
         <AuthContext.Provider value={authInfo}>

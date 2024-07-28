@@ -1,29 +1,35 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
-
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Navbar = () => {
-    const {user, logOut} = useContext(AuthContext);
-    const handleLogOut = () =>{
+    const { user, logOut } = useContext(AuthContext);
+    const handleLogOut = () => {
         logOut()
-        .then()
-        .catch(err =>{
-            console.error(err);
-        })
-    } 
+            .then()
+            .catch(err => {
+                console.error(err);
+            })
+    }
     const navlinks = <>
-        <li className="text-[#EEFF25]"> <Link to='/'><a>Home</a></Link></li>
-        <li className="text-[#EEFF25]"> <Link to='/menu'><a>Our Menu</a></Link></li>
-        <li className="text-[#EEFF25]"> <Link to='/order/salad'><a>Order Food</a></Link></li>
+        <li > <Link to='/'><a>Home</a></Link></li>
+        <li > <Link to='/menu'><a>Our Menu</a></Link></li>
+        <li > <Link to='/order/salad'><a>Order Food</a></Link></li>
+        <li>
+            <Link to='/'> <button className="btn">
+             <FaShoppingCart className="mr-2"></FaShoppingCart>
+                <div className="badge badge-secondary">+0</div>
+            </button></Link>
+        </li>
         {
             user ? <>
-                  <li onClick={handleLogOut} className="text-[#EEFF25] "> <Link to='/login'><a>Log Out</a></Link></li>
-             </> :
-             <>
-                  <li className="text-[#EEFF25]"> <Link to='/signup'><a>sign up</a></Link></li>
+                <li onClick={handleLogOut}  > <Link to='/login'><a>Log Out</a></Link></li>
+            </> :
+                <>
+                    <li > <Link to='/signup'><a>sign up</a></Link></li>
 
-             </>
+                </>
         }
 
     </>
@@ -38,7 +44,7 @@ const Navbar = () => {
                                 className="h-5 w-5"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke="currentColor">  
+                                stroke="currentColor">
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -60,7 +66,7 @@ const Navbar = () => {
 
                     </a>
                 </div>
-                <div className="navbar-end hidden lg:flex">
+                <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         {navlinks}
                     </ul>

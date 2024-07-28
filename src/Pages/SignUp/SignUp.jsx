@@ -1,37 +1,45 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 
 const SignUp = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const {createUser} = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { createUser, updateProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
     const onSubmit = (data) => {
         console.log(data);
         createUser(data.email, data.password)
-        .then(res=> {
-            const loggedUser = res.user;
-            Swal.fire({
-                title: "User Sign Up successfull.",
-                showClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `
-                },
-                hideClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `
-                }
-              });
-        })
+            .then(res => {
+                const loggedUser = res.user;
+                updateProfile(data.name, data.photo)
+                    .then(result => {
+                        console.log('user profile info updated');
+                        reset()
+                        Swal.fire({
+                            title: "User Sign Up successfull.",
+                            showClass: {
+                                popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                            },
+                            hideClass: {
+                                popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                            }
+                        });
+                        navigate('/')
+                    })
+
+            })
     }
 
     return (
@@ -56,6 +64,13 @@ const SignUp = () => {
                                 </label>
                                 <input type="text" placeholder="Name" name="name" defaultValue="test" {...register("name", { required: true })} className="input input-bordered" />
                                 {errors.name && <span>Name is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" placeholder="Photo URL" defaultValue="test" {...register("photo", { required: true })} className="input input-bordered" />
+                                {errors.photo && <span>photo url is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
