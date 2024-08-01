@@ -4,6 +4,7 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import SocailLogin from '../../Components/SocailLogin/SocailLogin';
 
 const Login = () => {
     const [desabled, setDesabled] = useState(true);
@@ -96,15 +97,17 @@ const Login = () => {
                             <label className="label">
                                 <LoadCanvasTemplate />
                             </label>
-                            <input onBlur={handleValidateCaptcha} type="text"  placeholder="type the captcha above" name="captcha" className="input input-bordered" required />
+                            <input onBlur={handleValidateCaptcha} type="text"  placeholder="type the captcha above" name="captcha" className="input input-bordered"  />
                            
 
                         </div>
                         <div className="form-control mt-6">
-                            <input disabled={desabled} className="btn btn-primary" type="submit" value="Login" />
+                            {/* TODO: apply desabled for re captcha */}
+                            <input disabled={false} className="btn  bg-[#D1A054]" type="submit" value="Login" />
                         </div>
+                    <p className='px-12'><small>New Here? <Link className='text-[#D1A054]' to="/signup">Create an account</Link></small></p>
+                    <SocailLogin></SocailLogin>
                     </form>
-                    <p><small>New Here? <Link to="/signup">Create an account</Link></small></p>
                 </div>
             </div>
         </div></>

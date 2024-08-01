@@ -4,43 +4,50 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
-
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocailLogin from "../../Components/SocailLogin/SocailLogin";
 
 const SignUp = () => {
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUser, updateProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
-    const onSubmit = (data) => {
-        console.log(data);
-        createUser(data.email, data.password)
-            .then(res => {
-                const loggedUser = res.user;
-                updateProfile(data.name, data.photo)
-                    .then(result => {
-                        console.log('user profile info updated');
-                        reset()
-                        Swal.fire({
-                            title: "User Sign Up successfull.",
-                            showClass: {
-                                popup: `
-                        animate__animated
-                        animate__fadeInUp
-                        animate__faster
-                      `
-                            },
-                            hideClass: {
-                                popup: `
-                        animate__animated
-                        animate__fadeOutDown
-                        animate__faster
-                      `
-                            }
-                        });
-                        navigate('/')
-                    })
 
+
+    const onSubmit = data => {
+        // console.log(data);
+        createUser(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photo)
+                    .then(() => {
+                        //  create user entry the database 
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                console.log('user added to the database');
+                                if (res.data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
+                                }
+                            })
+
+
+                    })
+                    .catch(error => console.log(error))
             })
-    }
+    };
 
     return (
         <>
@@ -108,10 +115,11 @@ const SignUp = () => {
 
 
                             <div className="form-control mt-6">
-                                <input className="btn btn-primary" type="submit" value="Sign up" />
+                                <input className="btn  bg-[#D1A054]" type="submit" value="Sign up" />
                             </div>
+                        <p className="px-14"><small>Already registered?  <Link className="text-[#D1A054]" to="/login">Go to login</Link></small></p>
+                        <SocailLogin/>
                         </form>
-                        <p><small>New Here? <Link to="/login">Create an account</Link></small></p>
                     </div>
                 </div>
             </div>
