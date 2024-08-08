@@ -118,8 +118,8 @@ const SignUp = () => {
                                 <input className="btn  bg-[#D1A054]" type="submit" value="Sign up" />
                             </div>
                         <p className="px-14"><small>Already registered?  <Link className="text-[#D1A054]" to="/login">Go to login</Link></small></p>
-                        <SocailLogin/>
                         </form>
+                        <SocailLogin/>
                     </div>
                 </div>
             </div>

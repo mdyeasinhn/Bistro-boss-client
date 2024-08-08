@@ -2,10 +2,11 @@ import { FaAd, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaShoppingCart, F
 import { CiMenuBurger } from "react-icons/ci";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashbord = () => {
     const [cart] = useCart();
-    const isAdmin = true;
+    const [isAdmin ]= useAdmin();
     return (
         <div className="flex ">
             {/* deshbord side bar */}
