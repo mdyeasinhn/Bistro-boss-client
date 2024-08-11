@@ -4,46 +4,56 @@ import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
 import useAdmin from "../Hooks/useAdmin";
 
+
 const Dashbord = () => {
     const [cart] = useCart();
-    const [isAdmin ]= useAdmin();
+    const [isAdmin] = useAdmin();
     return (
         <div className="flex ">
             {/* deshbord side bar */}
-            <div className="w-64 min-h-screen bg-orange-400">
-
+            <div className="w-64 min-h-screen bg-[#D1A054]">
+                <div className="text-center pt-12 pb-10">
+                    <h1 className="uppercase font-extrabold text-2xl">BISTRO BOSS</h1>
+                    <h1 className="uppercase font-bold">R e s t a u r a n t</h1>
+                </div>
                 <ul className="menu p-4">
                     {
                         isAdmin ? <>
-                             <li>
-                        <NavLink to='/dashbord/adminHome'>
-                            <FaHome />
-                            Admin Home
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashbord/addItmes '>
-                            <FaUtensils />
-                          Add Items
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashbord/manageItmes'>
-                            <FaList />
-                                Manage Items</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashbord/bookings'>
-                            <FaBook />
-                           Manage Bookings
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashbord/users'>
-                            <FaUsers />
-                         All  Users
-                        </NavLink>
-                    </li>
+                            <li>
+                                <NavLink to='/dashbord/adminHome'>
+                                    <FaHome />
+                                    Admin Home
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/dashbord/addItems'>
+                                    <FaUtensils />
+                                    Add Items
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/dashbord/manageItmes'>
+                                    <FaList />
+                                    Manage Items</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/dashbord/cart'>
+                                    <FaShoppingCart></FaShoppingCart>
+                                   My Cart
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/dashbord/bookings'>
+                                    <FaBook />
+                                    Manage Bookings
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/dashbord/users'>
+                                    <FaUsers />
+                                    All  Users
+                                </NavLink>
+                            </li>
 
                         </>
                             :
@@ -94,6 +104,7 @@ const Dashbord = () => {
                             Menu
                         </NavLink>
                     </li>
+
                     <li>
                         <NavLink to='/dashbord/contact'>
                             <FaEnvelope></FaEnvelope>

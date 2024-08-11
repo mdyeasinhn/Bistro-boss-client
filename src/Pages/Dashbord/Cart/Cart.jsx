@@ -2,6 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../Hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 
 
 const Cart = () => {
@@ -39,15 +40,16 @@ const Cart = () => {
     if (!cart) return <p>Loading...</p>; // Handle loading or empty state
     return (
         <div>
-            <div className="flex justify-evenly mb-8">
-                <h2 className="text-4xl">Items :{cart.length} </h2>
-                <h2 className="text-xl">Total Price :${totalPrice} </h2>
-                <button className="btn btn-primary">Pay</button>
+            <SectionTitle heading='WANNA ADD MORE?' subHeading='---My Cart---'></SectionTitle>
+            <div className="flex justify-between mb-8">
+                <h2 className="text-3xl uppercase font-semibold">Total orders : {cart.length} </h2>
+                <h2 className="text-3xl uppercase font-semibold">Total Price :${totalPrice} </h2>
+                <button className="btn bg-[#D1A054]  text-white hover:bg-[#af7c2f]">Pay</button>
             </div>
             <div className="overflow-x-auto ">
                 <table className="table w-full">
                     {/* head */}
-                    <thead>
+                    <thead className="bg-[#D1A054]">
                         <tr>
                             <th>
                                 #
@@ -76,13 +78,13 @@ const Cart = () => {
 
                                     </div>
                                 </td>
-                                <td>
+                                <td className="text-[#737373]">
                                     {item.name}
 
                                 </td>
-                                <td>${item.price}</td>
+                                <td className="text-[#737373]">${item.price}</td>
                                 <th>
-                                    <button onClick={() => handleDelete(item._id)} className="btn btn-ghost btn-lg">
+                                    <button onClick={() => handleDelete(item._id)} className="btn btn-ghost btn-xl">
                                         <FaTrashAlt className="text-red-600" />
                                     </button>
                                 </th>

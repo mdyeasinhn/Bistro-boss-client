@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 
 
 const AllUsers = () => {
@@ -57,15 +58,17 @@ const AllUsers = () => {
     }
     return (
         <div>
+                <SectionTitle heading='MANAGE ALL USERS' subHeading='---How many??---'></SectionTitle>
+
 
             <div className="flex justify-evenly">
                 <h2 className="text-3xl">All Users</h2>
                 <h2 className="text-3xl">Total Users : {users.length}</h2>
             </div>
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+                <table className="table table-zebra w-full ">
                     {/* head */}
-                    <thead className="bg-gray-200 ">
+                    <thead className="bg-[#D1A054]  rounded-lg ">
                         <tr>
                             <th></th>
                             <th>Name</th>
@@ -81,12 +84,12 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                   {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="btn bg-orange-500 btn-lg">
+                                   {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="btn bg-[#D1A054] btn-xl">
                                         <FaUsers className="text-white " />
                                     </button>}
                                 </td>
                                 <td>
-                                    <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-lg">
+                                    <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-xl">
                                         <FaTrashAlt className="text-red-600" />
                                     </button>
                                 </td>

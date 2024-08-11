@@ -19,17 +19,19 @@ const Navbar = () => {
         <li > <Link to='/menu'><a>Our Menu</a></Link></li>
         <li > <Link to='/order/salad'><a>Order Food</a></Link></li>
         <li>
-            <Link to='/dashbord/cart'> <button className="btn">
-             <FaShoppingCart className="mr-2"></FaShoppingCart>
-                <div className="badge badge-secondary">+{cart.length}</div>
+            <Link to='/dashbord/cart'> <button className="">
+             <FaShoppingCart className="mr-2 text-2xl "></FaShoppingCart>
+                <div className="relative">
+                <div className="badge badge-secondary absolute -top-8 left-4 ">+{cart.length}</div>
+                </div>
             </button></Link>
         </li>
         {
             user ? <>
-                <li onClick={handleLogOut}  > <Link to='/login'><a>Log Out</a></Link></li>
+                <li onClick={handleLogOut}  > <Link to='/login' className="font-extrabold "><a>Sign Out</a></Link></li>
             </> :
                 <>
-                    <li > <Link to='/signup'><a>sign up</a></Link></li>
+                    <li > <Link to='/signup' className="font-extrabold "><a>sign up</a></Link></li>
 
                 </>
         }
