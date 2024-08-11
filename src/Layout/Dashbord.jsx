@@ -36,12 +36,7 @@ const Dashbord = () => {
                                     <FaList />
                                     Manage Items</NavLink>
                             </li>
-                            <li>
-                                <NavLink to='/dashbord/cart'>
-                                    <FaShoppingCart></FaShoppingCart>
-                                   My Cart
-                                </NavLink>
-                            </li>
+                          
                             <li>
                                 <NavLink to='/dashbord/bookings'>
                                     <FaBook />
