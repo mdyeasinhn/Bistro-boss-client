@@ -12,6 +12,9 @@ import AllUsers from "../Pages/Dashbord/AllUsers/AllUsers";
 import AddItems from "../Pages/Dashbord/AddItems/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItmes from "../Pages/Dashbord/ManageItmes/ManageItmes";
+import UpdateItems from "../Pages/Dashbord/UpdateItems/UpdateItems";
+import { Parallax } from "swiper/modules";
+import Payment from "../Pages/Dashbord/Payment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -50,6 +53,10 @@ export const router = createBrowserRouter([
         path: 'cart',
         element: <Cart />
       },
+      {
+        path: 'payment',
+        element: <Payment />
+      },
       // Admin only routes
       {
         path: 'users',
@@ -58,6 +65,12 @@ export const router = createBrowserRouter([
       {
         path: 'addItems',
         element : <AdminRoute><AddItems/></AdminRoute>
+      },
+      {
+        path: 'updateItem/:id',
+        element :<AdminRoute><UpdateItems/></AdminRoute>,
+        loader: ({params}) => fetch(`http://localhost:9000/menu/${params.id}`)
+   
       },
       {
         path: 'manageItmes',

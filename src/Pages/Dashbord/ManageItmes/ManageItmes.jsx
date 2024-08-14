@@ -3,10 +3,11 @@ import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import useMenu from "../../../Hooks/useMenu";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const ManageItmes = () => {
-    const [menu,  refetch] = useMenu();
+    const [menu, loading, refetch] = useMenu();
     const axiosSecure = useAxiosSecure();
     const handleDeleteItem = (item) => {
         Swal.fire({
@@ -39,9 +40,9 @@ const ManageItmes = () => {
     return (
         <div>
             <SectionTitle heading='MANAGE ALL ITEMS' subHeading='---Hurry Up!---'></SectionTitle>
-            <div className="flex justify-evenly">
-                <h2 className="text-3xl">All Users</h2>
-                <h2 className="text-3xl">Total Users : </h2>
+            <div className="mb-2">
+                <h2 className="text-3xl">Total items : {menu.length}</h2>
+               
             </div>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full ">
@@ -70,9 +71,13 @@ const ManageItmes = () => {
                                 <td>{item.name}</td>
                                 <td className="">${item.price}</td>
                                 <td>
-                                    <button className="btn bg-[#D1A054] ">
-                                        <FaEdit className="text-white" />
-                                    </button>
+                                     <Link to={`/dashbord/updateItem/${item._id}`}>
+                                            <button
+                                                className="btn   bg-orange-500">
+                                                <FaEdit className="text-white 
+                                        "></FaEdit>
+                                            </button>
+                                        </Link>
                                 </td>
                                 <td>
                                     <button onClick={() => handleDeleteItem(item)} className="btn btn-ghost btn-xl">
