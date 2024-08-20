@@ -15,6 +15,9 @@ import ManageItmes from "../Pages/Dashbord/ManageItmes/ManageItmes";
 import UpdateItems from "../Pages/Dashbord/UpdateItems/UpdateItems";
 import { Parallax } from "swiper/modules";
 import Payment from "../Pages/Dashbord/Payment/Payment";
+import PaymentHistory from "../Pages/Dashbord/PaymentHistory/PaymentHistory";
+import UserHome from "../Pages/Dashbord/UserHome/UserHome";
+import AdminHome from "../Pages/Dashbord/AdminHome/AdminHome";
 
 
 export const router = createBrowserRouter([
@@ -50,6 +53,10 @@ export const router = createBrowserRouter([
     children: [
       // normal user routes
       {
+        path : 'userHome',
+        element : <UserHome/>
+      },
+      {
         path: 'cart',
         element: <Cart />
       },
@@ -57,7 +64,15 @@ export const router = createBrowserRouter([
         path: 'payment',
         element: <Payment />
       },
+      {
+        path: 'paymentHistory',
+        element : <PaymentHistory/>
+      },
       // Admin only routes
+      {
+        path: 'adminHome',
+        element : <AdminRoute><AdminHome/></AdminRoute>
+      },
       {
         path: 'users',
         element : <AdminRoute><AllUsers/></AdminRoute>
