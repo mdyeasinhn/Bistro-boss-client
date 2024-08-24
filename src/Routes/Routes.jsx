@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
     children: [
       // normal user routes
       {
-        path : 'userHome',
+        path :'userHome',
         element : <UserHome/>
       },
       {
