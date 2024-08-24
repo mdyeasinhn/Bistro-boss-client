@@ -59,12 +59,7 @@ const Dashbord = () => {
                                         User Home
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink to='/dashbord/history'>
-                                        <FaCalendar />
-                                      Not  Payment Histroy
-                                    </NavLink>
-                                </li>
+                              
                                 <li>
                                     <NavLink to='/dashbord/cart'>
                                         <FaShoppingCart />
@@ -79,7 +74,7 @@ const Dashbord = () => {
                                 <li>
                                     <NavLink to='/dashbord/paymentHistory'>
                                         <FaList />
-                                       Real Payment history  
+                                     Payment history  
                                     </NavLink>
                                 </li>
                             </>

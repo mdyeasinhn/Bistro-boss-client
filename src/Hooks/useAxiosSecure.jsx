@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-    baseURL: "http://localhost:9000"
+    baseURL: "https://bistro-boss-server-dusky-theta.vercel.app"
 })
 const useAxiosSecure = () => {
     const navigate = useNavigate();

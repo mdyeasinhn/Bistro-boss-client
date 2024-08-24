@@ -18,12 +18,14 @@ import Payment from "../Pages/Dashbord/Payment/Payment";
 import PaymentHistory from "../Pages/Dashbord/PaymentHistory/PaymentHistory";
 import UserHome from "../Pages/Dashbord/UserHome/UserHome";
 import AdminHome from "../Pages/Dashbord/AdminHome/AdminHome";
+import ErrorElement from "../Components/ErrorElement/ErrorElement";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorElement/>,
     children: [
       {
         path: '/',
@@ -84,7 +86,7 @@ export const router = createBrowserRouter([
       {
         path: 'updateItem/:id',
         element :<AdminRoute><UpdateItems/></AdminRoute>,
-        loader: ({params}) => fetch(`http://localhost:9000/menu/${params.id}`)
+        loader: ({params}) => fetch(`https://bistro-boss-server-dusky-theta.vercel.app/menu/${params.id}`)
    
       },
       {

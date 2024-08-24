@@ -25,7 +25,7 @@ const CheckOutFrom = () => {
     if (totalPrice > 0) {
       axiosSecure.post('/create-payment-intent', { price: totalPrice })
         .then(res => {
-          console.log(res);
+          console.log(res.data);
           setClientSecret(res.data?.clientSecret)
         })
     }
@@ -90,15 +90,15 @@ const CheckOutFrom = () => {
         const res = await axiosSecure.post('/payments', payment);
         console.log('payment saved', res.data);
         refetch()
-        if(res.data?.paymentResult?.insertedId){
+        if (res.data?.paymentResult?.insertedId) {
           Swal.fire({
             position: "top-center",
             icon: "success",
-            title: "Thank you for the taka paisa",
+            title: "Thank you for the Payment",
             showConfirmButton: false,
             timer: 1500
-        });
-     navigate('/dashbord/paymentHistory')
+          });
+          navigate('/dashbord/paymentHistory')
         }
       }
     }
@@ -106,25 +106,30 @@ const CheckOutFrom = () => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
+      <div  className="flex justify-center ">
+        <CardElement
+        className="w-1/2 border rounded-lg p-5"
+          options={{
+            style: {
+              base: {
+                fontSize: '16px',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
               },
             },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
-        }}
-      />
-      <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
-        Pay
-      </button>
+          }}
+        />
+      </div>
+      <div className="text-center">
+        <button className="btn w-[300px] btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
+          Pay
+        </button>
+      </div>
       <p className="text-red-600">{error}</p>
     </form>
   );
