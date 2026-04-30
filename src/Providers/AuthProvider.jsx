@@ -1,71 +1,75 @@
 import { useEffect, useState } from "react";
 import { createContext } from "react";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import { app } from "../Firebase/Firebase.config";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
+import axios from "axios";
 
- export const AuthContext = createContext(null);
- const auth = getAuth(app);
+export const AuthContext = createContext(null);
+
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const googleProvider = new GoogleAuthProvider();
-    const axiosPublic = useAxiosPublic()
 
-    const createUser = (email, password)=>{
-        setLoading(true)
-        return createUserWithEmailAndPassword(auth, email, password);
+    const createUser = (email, password, name) => {
+        setLoading(true);
+        return axios.post('http://localhost:9000/users/register', { email, password, name })
+            .then(res => {
+                if(res.data.token) {
+                    localStorage.setItem('access-token', res.data.token);
+                    setUser(res.data.user);
+                }
+                setLoading(false);
+                return res;
+            });
     };
-    const googleSignIn = () =>{
-        setLoading(true);
-        return signInWithPopup(auth, googleProvider)
-    }
-    const signIn = (email, password) =>{
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    }
 
-    const logOut = () =>{
-        setLoading(true)
-        return signOut(auth);
-    }
-    const updateUserProfile = (name, photo) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: photo
-        });
-    }
-    useEffect(()=>{
-      const unsubcribe = onAuthStateChanged(auth, currentUser=>{
-            setUser(currentUser)
-            console.log('current user',currentUser);
-            if(currentUser){
-                const userInfo = {email : currentUser.email}
-                axiosPublic.post('/jwt', userInfo)
-                .then(res => {
-                    if(res.data.token){
-                        localStorage.setItem('access-token', res.data.token);
-                        setLoading(false)
-                    }
-                })
-            }else{
-                 // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
-                localStorage.removeItem('access-token')
-                setLoading(false)
-            }
-        });
-        return()=>{
-        return unsubcribe();
+    const signIn = (email, password) => {
+        setLoading(true);
+        return axios.post('http://localhost:9000/users/login', { email, password })
+            .then(res => {
+                if(res.data.token) {
+                    localStorage.setItem('access-token', res.data.token);
+                    setUser(res.data.user);
+                }
+                setLoading(false);
+                return res;
+            });
+    };
+
+    const logOut = () => {
+        setLoading(true);
+        localStorage.removeItem('access-token');
+        setUser(null);
+        setLoading(false);
+        return Promise.resolve();
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem('access-token');
+        if(token) {
+            axios.get('http://localhost:9000/users/me', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(res => {
+                setUser(res.data.user);
+                setLoading(false);
+            })
+            .catch(() => {
+                localStorage.removeItem('access-token');
+                setUser(null);
+                setLoading(false);
+            });
+        } else {
+            setLoading(false);
         }
-    },[axiosPublic])
+    }, []);
+
     const authInfo = {
         user,
         loading,
         createUser,
         signIn,
         logOut,
-        updateUserProfile,
-        googleSignIn,
-    }
+    };
+
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
